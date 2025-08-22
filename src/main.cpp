@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 
     try {
         SprObj::Mesh mesh = readObj(filePath);
-        meshToBlueprint(mesh);
+        meshToBlueprint(mesh, outDir);
         std::cout << "Exported " << mesh.name << std::endl;
     } catch (const std::runtime_error& ex) {
         std::cerr << "Error: " << ex.what() << std::endl;
