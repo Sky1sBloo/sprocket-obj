@@ -9,7 +9,7 @@
 void showHelp()
 {
     std::cout << "Usage: \n"
-              << "-i [file path] | Import obj, dae, fbx, and glTF to blueprint\n"
+              << "-i [file path] | Import obj to blueprint\n"
               << "-o [out directory] | Specifies the output directory"
               << "-h | Show help"
               << std::endl;
