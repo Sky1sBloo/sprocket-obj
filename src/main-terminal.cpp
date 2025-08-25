@@ -1,6 +1,5 @@
 #include "importer/MeshToBlueprint.hpp"
 #include "importer/ObjReader.hpp"
-#include "mesh/Mesh.hpp"
 
 #include <cstring>
 #include <iostream>

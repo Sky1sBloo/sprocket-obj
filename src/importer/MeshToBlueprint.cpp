@@ -1,6 +1,6 @@
 #include "MeshToBlueprint.hpp"
 #include "json.hpp"
-#include "mesh/Mesh.hpp"
+#include "Mesh.hpp"
 #include <fstream>
 #include <stdexcept>
 #include <vector>

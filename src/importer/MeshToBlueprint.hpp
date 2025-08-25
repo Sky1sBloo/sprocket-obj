@@ -1,4 +1,4 @@
 #pragma once
-#include "mesh/Mesh.hpp"
+#include "Mesh.hpp"
 
 void meshToBlueprint(const SprObj::Mesh& mesh, const std::string& outDir = "./");
