@@ -4,6 +4,7 @@ Imports .obj files to sprocket .blueprint
 ## Installation
 ### Requirements
  - CMake 3.5 and above
+ - WxWidgets (Automatically fetches on build)
 
 ### Installing
 1. Create cmake files
