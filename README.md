@@ -1,16 +1,18 @@
 # Sprocket Obj
 Imports .obj files to sprocket .blueprint
 
-## Installation
-### Requirements
- - CMake 3.5 and above
+## Requirements
+ - CMake 3.14 and above
  - WxWidgets (Automatically fetches on build)
 
-### Installing
+## Installation
+Installation can be made with or without GUI with `-DBUILD_GUI=ON/OFF` option. Default off
+
 1. Create cmake files
 ```
 mkdir build
-cmake -B ./build
+
+cmake -B ./build -DBUILD_GUI=ON/OFF
 ```
 
 2. Compile the program 
@@ -21,11 +23,11 @@ cmake --build ./build
 3. Run the program
 ```
 cd ./build
-sprocket-obj -h
+./sprocket-obj
 ```
 
 ## Usage
-### Arguments
+### Arguments (For terminal use)
 | Option | Description |
 |--------|-------------|
 | `-i [file path]` | Import OBJ to blueprint |
