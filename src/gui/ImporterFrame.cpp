@@ -24,10 +24,10 @@ ImporterFrame::ImporterFrame()
         "Select the output directory");
     LabeledOption* outputPickerSizer = new LabeledOption(this, wxID_ANY, "Output Directory: ", outputDirPicker);
 
-    wxTextCtrl* textCtrl = new wxTextCtrl(
+    mModelText = new wxTextCtrl(
         this,
         wxID_ANY);
-    LabeledOption* textCtrlSizer = new LabeledOption(this, wxID_ANY, "Model name: ", textCtrl);
+    LabeledOption* textCtrlSizer = new LabeledOption(this, wxID_ANY, "Model name: ", mModelText);
 
     wxBoxSizer* layout = new wxBoxSizer(wxVERTICAL);
     wxButton* importButton = new wxButton(
@@ -50,8 +50,8 @@ void ImporterFrame::import(wxCommandEvent& event)
 {
     try {
         SprObj::Mesh mesh = readObj(mFileDir);
-        if (!mModelName.empty()) {
-            mesh.name = mModelName;
+        if (mModelText->GetValue().empty()) {
+            mesh.name = mModelText->GetValue().ToStdString();
         }
         meshToBlueprint(mesh, mOutputDir);
         std::string logStr = "Successfully imported " + mesh.name;
