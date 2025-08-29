@@ -50,7 +50,7 @@ void ImporterFrame::import(wxCommandEvent& event)
 {
     try {
         SprObj::Mesh mesh = readObj(mFileDir);
-        if (mModelText->GetValue().empty()) {
+        if (!mModelText->GetValue().empty()) {
             mesh.name = mModelText->GetValue().ToStdString();
         }
         meshToBlueprint(mesh, mOutputDir);
