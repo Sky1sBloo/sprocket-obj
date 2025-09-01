@@ -32,7 +32,7 @@ void meshToBlueprint(const SprObj::Mesh& mesh, const std::string& outDir)
 {
     std::vector<float> vertices;
     for (const SprObj::Vertex& vertex : mesh.vertices) {
-        vertices.push_back(vertex.x);
+        vertices.push_back(vertex.x * -1);
         vertices.push_back(vertex.y);
         vertices.push_back(vertex.z);
     }

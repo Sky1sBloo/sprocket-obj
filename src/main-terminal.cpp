@@ -10,6 +10,7 @@ void showHelp()
     std::cout << "Usage: \n"
               << "-i [file path] | Import obj to blueprint\n"
               << "-o [out directory] | Specifies the output directory"
+              << "-n [name] | Set object name"
               << "-h | Show help"
               << std::endl;
 }
@@ -23,6 +24,7 @@ int main(int argc, char* argv[])
 
     std::string filePath = "";
     std::string outDir = ".";
+    std::string meshName = "";
 
     for (int i = 0; i < argc; i++) {
         if (strcmp(argv[i], "-h") == 0) {
@@ -42,6 +44,12 @@ int main(int argc, char* argv[])
                 return 1;
             }
             outDir = argv[i + 1];
+        } else if (strcmp(argv[i], "-n") == 0) {
+            if (i >= argc) {
+                std::cerr << "Too few arguments, see -h for usage" << std::endl;
+                return 1;
+            }
+            meshName = argv[i + 1];
         }
     }
     if (filePath.empty()) {
@@ -51,6 +59,10 @@ int main(int argc, char* argv[])
 
     try {
         SprObj::Mesh mesh = readObj(filePath);
+        if (!meshName.empty()) {
+            mesh.name = meshName;
+        }
+
         meshToBlueprint(mesh, outDir);
         std::cout << "Exported " << mesh.name << std::endl;
     } catch (const std::runtime_error& ex) {

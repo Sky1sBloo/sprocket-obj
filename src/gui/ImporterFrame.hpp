@@ -11,6 +11,7 @@ public:
 private:
     std::string mFileDir;
     std::string mOutputDir;
+    wxTextCtrl* mModelText;
 
     void import(wxCommandEvent& event);
 
