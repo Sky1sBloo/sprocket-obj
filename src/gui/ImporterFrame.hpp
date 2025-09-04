@@ -12,6 +12,7 @@ private:
     std::string mFileDir;
     std::string mOutputDir;
     wxTextCtrl* mModelText;
+    wxTextCtrl* mThicknessText;
 
     void import(wxCommandEvent& event);
 

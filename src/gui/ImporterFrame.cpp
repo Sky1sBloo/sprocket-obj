@@ -2,9 +2,13 @@
 #include "Mesh.hpp"
 #include "MeshToBlueprint.hpp"
 #include "ObjReader.hpp"
+#include <stdexcept>
 #include <wx/wx.h>
 
 #include "LabeledOption.hpp"
+#include "wx/event.h"
+#include "wx/gtk/textctrl.h"
+#include "wx/log.h"
 
 ImporterFrame::ImporterFrame()
     : wxFrame(nullptr, wxID_ANY, "Sprocket Obj Importer")
@@ -27,7 +31,13 @@ ImporterFrame::ImporterFrame()
     mModelText = new wxTextCtrl(
         this,
         wxID_ANY);
-    LabeledOption* textCtrlSizer = new LabeledOption(this, wxID_ANY, "Model name: ", mModelText);
+    LabeledOption* modelNameSizer = new LabeledOption(this, wxID_ANY, "Model name: ", mModelText);
+
+    mThicknessText = new wxTextCtrl(
+        this,
+        wxID_ANY,
+        "5");
+    LabeledOption* thicknessTextSizer = new LabeledOption(this, wxID_ANY, "Thickness (mm): ", mThicknessText);
 
     wxBoxSizer* layout = new wxBoxSizer(wxVERTICAL);
     wxButton* importButton = new wxButton(
@@ -37,7 +47,8 @@ ImporterFrame::ImporterFrame()
 
     layout->Add(filePickerSizer, 0, wxLEFT | wxRIGHT, 5);
     layout->Add(outputPickerSizer, 0, wxLEFT | wxRIGHT, 5);
-    layout->Add(textCtrlSizer, 0, wxLEFT | wxRIGHT, 5);
+    layout->Add(modelNameSizer, 0, wxLEFT | wxRIGHT, 5);
+    layout->Add(thicknessTextSizer, 0, wxLEFT | wxRIGHT, 5);
     layout->Add(importButton, 0, wxALIGN_CENTER);
     this->SetSizerAndFit(layout);
 
@@ -53,10 +64,17 @@ void ImporterFrame::import(wxCommandEvent& event)
         if (!mModelText->GetValue().empty()) {
             mesh.name = mModelText->GetValue().ToStdString();
         }
+        int thickness = 5;
+        if (!mThicknessText->GetValue().empty()) {
+            thickness = std::stoi(mThicknessText->GetValue().ToStdString());
+        }
+        mesh.thickness = thickness;
         meshToBlueprint(mesh, mOutputDir);
         std::string logStr = "Successfully imported " + mesh.name;
         wxLogMessage(logStr.c_str());
 
+    } catch (const std::invalid_argument& ex) {
+        wxLogMessage("Thickness value is not an integer");
     } catch (const std::runtime_error& ex) {
         wxLogMessage(ex.what());
     }

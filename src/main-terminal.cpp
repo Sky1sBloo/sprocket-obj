@@ -12,6 +12,7 @@ void showHelp()
               << "-o [out directory] | Specifies the output directory"
               << "-n [name] | Set object name"
               << "-h | Show help"
+              << "-t [thickness] | Set object thickness (default 5mm)"
               << std::endl;
 }
 
@@ -25,6 +26,7 @@ int main(int argc, char* argv[])
     std::string filePath = "";
     std::string outDir = ".";
     std::string meshName = "";
+    int meshThickness = 5;
 
     for (int i = 0; i < argc; i++) {
         if (strcmp(argv[i], "-h") == 0) {
@@ -50,6 +52,16 @@ int main(int argc, char* argv[])
                 return 1;
             }
             meshName = argv[i + 1];
+        } else if (strcmp(argv[i], "-t") == 0) {
+            if (i >= argc) {
+                std::cerr << "Too few arguments, see -h for usage" << std::endl;
+                return 1;
+            }
+            try {
+                meshThickness = std::stoi(argv[i + 1]);
+            } catch (const std::invalid_argument& ex) {
+                std::cerr << "Argument not a number" << std::endl;
+            }
         }
     }
     if (filePath.empty()) {
@@ -62,6 +74,7 @@ int main(int argc, char* argv[])
         if (!meshName.empty()) {
             mesh.name = meshName;
         }
+        mesh.thickness = meshThickness;
 
         meshToBlueprint(mesh, outDir);
         std::cout << "Exported " << mesh.name << std::endl;

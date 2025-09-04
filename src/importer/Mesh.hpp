@@ -37,5 +37,6 @@ struct Mesh {
     std::vector<Vertex> vertices;
     std::vector<Face> faces;
     std::string name;
+    int thickness = 5;
 };
 }
